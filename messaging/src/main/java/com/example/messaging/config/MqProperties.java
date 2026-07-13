@@ -24,5 +24,6 @@ public class MqProperties {
     private String username;
     private String password;
     private String inboundQueue;
+    private String outboundQueue;
 }
 

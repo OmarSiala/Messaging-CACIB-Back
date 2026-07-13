@@ -4,6 +4,7 @@ import com.example.messaging.dto.PaymentMessageResponse;
 import com.example.messaging.service.PaymentMessageService;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 /**
  * Contrôleur REST de consultation des messages persistés.
  */
+@Slf4j
 @RestController
 @RequestMapping("/api/v1/messages")
 @RequiredArgsConstructor
@@ -42,7 +44,8 @@ public class PaymentMessageController {
      */
     @GetMapping("/{id}")
     public ResponseEntity<PaymentMessageResponse> getMessageById(@PathVariable UUID id) {
-        return ResponseEntity.ok(service.getById(id));
+        log.info("Consultation du message id={}", id);
+        return ResponseEntity.ok().body(service.getById(id));
     }
 }
 

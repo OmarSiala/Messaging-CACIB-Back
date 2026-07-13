@@ -40,7 +40,8 @@ public class PaymentMessageServiceImpl implements PaymentMessageService {
     public PaymentMessageResponse getById(UUID id) {
         PaymentMessageEntity entity = repository.findById(id)
             .orElseThrow(() -> new MessageNotFoundException(id));
-        return mapper.toResponse(entity);
+       var dto= mapper.toResponse(entity);
+       return dto;
     }
 
     @Override
