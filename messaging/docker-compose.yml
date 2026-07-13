@@ -1,0 +1,30 @@
+﻿version: '3.9'
+
+services:
+  ibmmq:
+    image: ibmcom/mq:latest
+    container_name: ibm_mq
+    environment:
+      - LICENSE=accept
+      - MQ_QMGR_NAME=QM1
+      - MQ_ENABLE_WEB_CONSOLE=true
+      - MQ_ADMIN_USER=admin
+      - MQ_ADMIN_PASSWORD=passw0rd
+    ports:
+      - "1414:1414"
+      - "9443:9443"
+
+  postgres:
+    image: postgres:15
+    container_name: postgres_local
+    environment:
+      POSTGRES_USER: messaging_user
+      POSTGRES_PASSWORD: messaging_password
+      POSTGRES_DB: messaging_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:

@@ -9,7 +9,7 @@ Ces messages transitent dans une **application de routage** pour être transfér
 
 Créer une application Web permettant :
 
-1. **Lecture et stockage** des messages déposés sur une file IBM MQ Series dans une **base de données relationnelle**.
+1. **Lecture et stockage** des messages déposés sur une file IBM MQ Series dans une **base de données relationnelle (postgres SQL)**.
 2. **Exposition d’API REST** permettant la **consultation des messages** via une IHM.
 3. Répondre à des **contraintes de performance**, de **résilience**, et de **scalabilité**, étant donné la **volumétrie importante** de messages à traiter.
 
@@ -23,7 +23,8 @@ Copilot doit toujours tenir compte de ce contexte avant de générer du code.
 - Utiliser **Spring Boot** comme framework backend.
 - Utiliser **Maven** comme système de build.
 - Utiliser **IBM MQ** pour la réception des messages.
-- Utiliser une **base relationnelle** (PostgreSQL ou autre).
+- Utiliser une **base relationnelle** (PostgreSQL).
+- utiliser **Liquibase** pour la gestion des migrations de schéma.
 - Utiliser **JUnit 5** + **Mockito** pour les tests.
 
 ---
@@ -54,6 +55,30 @@ Copilot doit générer du code **comme un ingénieur Senior (10+ ans d’expéri
 - Méthodes courtes, classes cohérentes, responsabilités bien définies.
 - Nommage explicite et professionnel.
 - Pas de duplication de code.
+- Favoriser l'utilisation des Annotations Spring Boot et des conventions du framework.
+- Utiliser MapStruct pour les mappings entité-DTO.
+- Utiliser des Optional pour les valeurs pouvant être nulles.
+- Utiliser des exceptions personnalisées pour les erreurs métier.
+- Utiliser des logs pour les événements importants et les erreurs.
+- Utiliser des transactions pour les opérations critiques.
+- Utiliser LocalDate et LocalDateTime pour les dates et heures.
+- Utiliser des constantes pour les valeurs réutilisées.
+- Utiliser des tests unitaires pour valider le comportement du code.
+- Utiliser des interfaces pour les services et les repositories.
+- Utiliser des packages cohérents et bien organisés.
+- Utiliser des fichiers de configuration pour les paramètres sensibles (MQ, DB, etc.).
+- Utiliser des profils Spring pour gérer les environnements (dev, test, prod).
+- Utiliser des exceptions pour gérer les erreurs et les cas limites.
+- Utiliser des DTO pour exposer les données via les endpoints REST.
+- Utiliser des validations pour les entrées utilisateur (Bean Validation).
+- Utiliser des validators pour les Dto et les entités.
+- Favoriser l’injection de dépendances via les constructeurs (pas de Autowired).
+- favoriser l’utilisation de streams et de lambdas pour les collections.
+- Pas de code mort ou inutilisé.
+- Pas de code généré automatiquement sans raison.
+- Pas de code spaghetti ou trop complexe.
+- Pas de If et de Switch imbriqués.
+- Pas de code qui ne respecte pas les conventions de nommage Java.
 - Architecture claire :
 
 
@@ -129,3 +154,6 @@ Quand tu génères du code dans ce dépôt :
 - Toujours générer un fichier de **spécification**.
 - Toujours produire du code **professionnel**, **optimisé**, **lisible**, **maintenable**.
 
+## 7. Out of scope
+
+- Gestion de l’authentification et des autorisations
