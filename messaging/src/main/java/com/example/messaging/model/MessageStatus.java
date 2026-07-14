@@ -5,6 +5,9 @@ package com.example.messaging.model;
  */
 public enum MessageStatus {
     RECEIVED,
-    REJECTED
+    REJECTED,
+    PROCESSED,
+    UNKNOWN
+
 }
 
