@@ -4,12 +4,16 @@ import jakarta.jms.JMSException;
 import jakarta.jms.Message;
 import java.time.Instant;
 import java.util.List;
+import java.util.Objects;
+
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 /**
  * Adapter qui convertit un message JMS en modèle métier interne.
  */
+@Slf4j
 @Component
 @RequiredArgsConstructor
 public class JmsInboundMessageAdapter {
@@ -25,6 +29,8 @@ public class JmsInboundMessageAdapter {
      * @throws JMSException en cas d'erreur d'accès aux métadonnées JMS
      */
     public InboundMqMessage adapt(Message message, String sourceQueue) throws JMSException {
+        Objects.requireNonNull(message, "Le message JMS ne peut pas être null");
+        Objects.requireNonNull(sourceQueue, "Le nom de la file source ne peut pas être null");
         String payload = extractPayload(message);
         return InboundMqMessage.builder()
             .mqMessageId(message.getJMSMessageID())
@@ -38,10 +44,12 @@ public class JmsInboundMessageAdapter {
     private String extractPayload(Message message) throws JMSException {
         for (MessagePayloadExtractorStrategy extractor : extractors) {
             if (extractor.supports(message)) {
+                log.debug("Extraction du payload du message JMS. type={} extractor={}", message.getClass().getName(), extractor.getClass().getName());
                 return extractor.extract(message);
             }
         }
-        throw new JMSException("Type de message JMS non supporte: " + message.getClass().getName());
+        log.warn("Type de message JMS non supporte pour extraction du payload. type={}", message.getClass().getName());
+        throw new JMSException("Type de message JMS non supporté: " + message.getClass().getName());
     }
 }
 

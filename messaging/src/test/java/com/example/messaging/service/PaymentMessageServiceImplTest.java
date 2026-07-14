@@ -5,6 +5,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.Mockito.when;
 
 import com.example.messaging.dto.PaymentMessageResponse;
+import com.example.messaging.exceptions.MessageNotFoundException;
 import com.example.messaging.factory.PaymentMessageFactory;
 import com.example.messaging.mapper.PaymentMessageMapper;
 import com.example.messaging.model.MessageStatus;
@@ -14,6 +15,8 @@ import com.example.messaging.repository.PaymentMessageRepository;
 import java.time.Instant;
 import java.util.Optional;
 import java.util.UUID;
+
+import com.example.messaging.service.impl.PaymentMessageServiceImpl;
 import org.mapstruct.factory.Mappers;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

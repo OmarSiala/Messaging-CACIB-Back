@@ -7,7 +7,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.example.messaging.dto.MqPushMessageResponse;
-import com.example.messaging.service.MqMessagePublishException;
+import com.example.messaging.exceptions.MqMessagePublishException;
+import com.example.messaging.exceptions.RestExceptionHandler;
 import com.example.messaging.service.MqMessagePublisherService;
 import java.time.LocalDateTime;
 import org.junit.jupiter.api.Test;

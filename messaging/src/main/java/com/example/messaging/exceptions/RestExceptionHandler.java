@@ -1,7 +1,5 @@
-package com.example.messaging.controller;
+package com.example.messaging.exceptions;
 
-import com.example.messaging.service.MqMessagePublishException;
-import com.example.messaging.service.MessageNotFoundException;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import org.springframework.http.HttpStatus;

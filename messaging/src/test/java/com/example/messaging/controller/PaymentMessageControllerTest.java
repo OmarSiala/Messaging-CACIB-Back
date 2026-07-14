@@ -6,8 +6,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.example.messaging.dto.PaymentMessageResponse;
+import com.example.messaging.exceptions.MessageNotFoundException;
+import com.example.messaging.exceptions.RestExceptionHandler;
 import com.example.messaging.model.MessageStatus;
-import com.example.messaging.service.MessageNotFoundException;
 import com.example.messaging.service.PaymentMessageService;
 import java.time.Instant;
 import java.util.List;
@@ -36,22 +37,24 @@ class PaymentMessageControllerTest {
     void shouldReturnPagedMessages() throws Exception {
         UUID id = UUID.randomUUID();
         PaymentMessageResponse response = new PaymentMessageResponse(
-            id,
-            "ID:1",
-            "CORR",
-            "DEV.QUEUE.1",
-            "payload",
-            MessageStatus.RECEIVED,
-            Instant.now(),
-            Instant.now()
+                id,
+                "ID:1",
+                "CORR",
+                "DEV.QUEUE.1",
+                "payload",
+                MessageStatus.RECEIVED,
+                Instant.now(),
+                Instant.now()
         );
 
-        when(service.getMessages(PageRequest.of(0, 20))).thenReturn(new PageImpl<>(List.of(response), PageRequest.of(0, 20), 1));
+        when(service.getMessages(org.mockito.ArgumentMatchers.any(org.springframework.data.domain.Pageable.class)))
+                .thenReturn(new PageImpl<>(List.of(response), PageRequest.of(0, 20), 1));
 
         mockMvc.perform(get("/api/v1/messages").accept(MediaType.APPLICATION_JSON))
-            .andExpect(status().isOk())
-            .andExpect(jsonPath("$.content[0].id").value(id.toString()))
-            .andExpect(jsonPath("$.content[0].mqMessageId").value("ID:1"));
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.content[0].id").value(id.toString()))
+                .andExpect(jsonPath("$.content[0].mqMessageId").value("ID:1"))
+                .andExpect(jsonPath("$.totalElements").value(1));
     }
 
     @Test

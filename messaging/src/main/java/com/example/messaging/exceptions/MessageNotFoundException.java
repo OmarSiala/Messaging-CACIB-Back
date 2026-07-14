@@ -1,4 +1,4 @@
-package com.example.messaging.service;
+package com.example.messaging.exceptions;
 
 import java.util.UUID;
 

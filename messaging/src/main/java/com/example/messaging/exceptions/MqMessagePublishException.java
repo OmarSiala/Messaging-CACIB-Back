@@ -1,4 +1,4 @@
-package com.example.messaging.service;
+package com.example.messaging.exceptions;
 
 /**
  * Exception metier levee en cas d'echec de publication vers IBM MQ.

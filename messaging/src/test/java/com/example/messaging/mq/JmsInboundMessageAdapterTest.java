@@ -38,7 +38,7 @@ class JmsInboundMessageAdapterTest {
 
         assertThatThrownBy(() -> adapter.adapt(unsupported, "DEV.QUEUE.1"))
             .isInstanceOf(JMSException.class)
-            .hasMessageContaining("non supporte");
+            .hasMessageContaining("non supporté");
     }
 }
 
